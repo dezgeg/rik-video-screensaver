@@ -52,7 +52,7 @@ namespace VLCVideoScreensaver
 					ShowThePreview();
 				}
 			}
-			else // there are no arguments...nevertheless, do something!
+			else // No arguments. Just run the screen saver
 			{
 				RunTheScreensaver();
 			}
