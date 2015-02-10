@@ -50,11 +50,11 @@ namespace VLCVideoScreensaver
 
 		private void LocateFiles_button_Click(object sender, EventArgs e)
 		{
-			if (this.folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+			if (this.openFileDialog2.ShowDialog() == DialogResult.OK)
 			{
-				if (Directory.Exists(this.folderBrowserDialog1.SelectedPath))
+				if (File.Exists(this.openFileDialog2.FileName))
 				{
-					this.playlistFolder_textbox.Text = this.folderBrowserDialog1.SelectedPath;
+					this.playlistFolder_textbox.Text = this.openFileDialog2.FileName;
 				}
 			}
 		}
@@ -66,7 +66,7 @@ namespace VLCVideoScreensaver
 			bool PlaylistOK = true;
 			bool VLCFileOK = true;
 
-			if (!Directory.Exists(this.playlistFolder_textbox.Text))
+			if (!File.Exists(this.playlistFolder_textbox.Text))
 			{
 				PlaylistOK = false;
 			}
@@ -82,7 +82,7 @@ namespace VLCVideoScreensaver
 			}
 			else if (PlaylistOK == false)
 			{
-				MessageBox.Show("The playlist folder is okay");
+				MessageBox.Show("The playlist file does not exist");
 			}
 			else if (VLCFileOK == false)
 			{

@@ -59,6 +59,7 @@ namespace VLCVideoScreensaver
             this.Cancel_Button = new System.Windows.Forms.Button();
             this.DisableAudioCheckbox = new System.Windows.Forms.CheckBox();
             this.RandomPlayCheckbox = new System.Windows.Forms.CheckBox();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // label1
@@ -113,9 +114,9 @@ namespace VLCVideoScreensaver
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(50, 156);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 13);
+            this.label3.Size = new System.Drawing.Size(89, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Folder to play";
+            this.label3.Text = "Playlist file to play";
             // 
             // LocalFiles_button
             // 
@@ -167,6 +168,10 @@ namespace VLCVideoScreensaver
             this.RandomPlayCheckbox.Text = "Random Play";
             this.RandomPlayCheckbox.UseVisualStyleBackColor = true;
             // 
+            // openFileDialog2
+            // 
+            this.openFileDialog2.FileName = "openFileDialog2";
+            // 
             // ConfigForm
             // 
             this.AccessibleDescription = "Screensaver configuration box";
@@ -209,5 +214,6 @@ namespace VLCVideoScreensaver
 		private System.Windows.Forms.Button Cancel_Button;
 		private System.Windows.Forms.CheckBox DisableAudioCheckbox;
 		private System.Windows.Forms.CheckBox RandomPlayCheckbox;
-	}
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
+    }
 }
