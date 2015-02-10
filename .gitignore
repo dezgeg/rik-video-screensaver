@@ -1,0 +1,7 @@
+*.suo
+*.user
+*.ide/
+Resources.Designer.cs
+Settings.Designer.cs
+bin
+obj
