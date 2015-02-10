@@ -60,22 +60,11 @@ namespace VLCVideoScreensaver
 				/* Not the primary monitor */
 				this.BackColor = Color.Black;
 				this.Bounds = Screen.AllScreens[this.ScreenNumber].Bounds;
-				this.BringToFront();
 			}
 			else
 			{
-				this.Capture = true;
-				this.Focus();
-				this.TopMost = true;
-
-				this.BackColor = Color.Black;
-				this.TransparencyKey = Color.Black;
-
-				this.Show();
-				this.SetDesktopLocation(Screen.PrimaryScreen.Bounds.X + 20, Screen.PrimaryScreen.Bounds.Y + 20);
-
 				String ArgumentList = " \"" + Properties.Settings.Default.PlaylistFolder + "\" ";
-				ArgumentList += " --video-on-top -f -L ";
+				ArgumentList += " --no-qt-system-tray --qt-notification=0 --video-on-top -f -L ";
 				if (Properties.Settings.Default.NoAudio)
 				{
 					ArgumentList += " --no-audio";
