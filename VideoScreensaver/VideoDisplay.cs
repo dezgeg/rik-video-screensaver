@@ -24,13 +24,16 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using MouseKeyboardActivityMonitor;
+using MouseKeyboardActivityMonitor.WinApi;
 
 namespace VLCVideoScreensaver
 {
 	public partial class VideoDisplay : Form
 	{
+        KeyboardHookListener keyboardHook;
+        MouseHookListener mouseHook;
 		Point InitialMouse;
-
 		int ScreenNumber;
 
 		bool thisIsPrimary;
@@ -51,8 +54,8 @@ namespace VLCVideoScreensaver
 
 		private void onLoad(object sender, EventArgs e)
 		{
-			Cursor.Hide();
 
+			Cursor.Hide();
 			this.thisIsPrimary = Screen.AllScreens[this.ScreenNumber].Primary;
 
 			if (this.thisIsPrimary == false)
@@ -80,18 +83,26 @@ namespace VLCVideoScreensaver
 
 				this.theProcess.Start();
 
-				this.timer1.Enabled = true;
-			}
-		}
+                // System.Threading.Thread.Sleep(1000);
+                GlobalHooker gh = new GlobalHooker();
+                this.keyboardHook = new KeyboardHookListener(gh);
+                this.keyboardHook.Enabled = true;
+                this.keyboardHook.KeyDown += OnKeypress;
 
-		private void OnMouseMove(object sender, MouseEventArgs e)
+                this.mouseHook = new MouseHookListener(gh);
+                this.mouseHook.Enabled = true;
+                this.mouseHook.MouseDown += OnMouseClick;
+                this.mouseHook.MouseMove += OnMouseMove;
+            }
+        }
+
+        private void OnMouseMove(object sender, MouseEventArgs e)
 		{
 			if (!InitialMouse.IsEmpty)
 			{
-				if (InitialMouse != new Point(e.X, e.Y))
-				{
+				if (Math.Abs(InitialMouse.X - e.X) > 20 || Math.Abs(InitialMouse.Y - e.Y) > 20)
+                {
 					this.KillVLC();
-					this.Close();
 				}
 			}
 			else
@@ -100,42 +111,25 @@ namespace VLCVideoScreensaver
 			}
 		}
 
-		private void OnKeypress(object sender, KeyPressEventArgs e)
+		private void OnKeypress(object sender, KeyEventArgs e)
 		{
 			this.KillVLC();
-			this.Close();
 		}
 
 		private void OnMouseClick(object sender, MouseEventArgs e)
 		{
 			this.KillVLC();
-			this.Close();
-		}
-
-		private void timer1_Tick(object sender, EventArgs e)
-		{
-			if (!InitialMouse.IsEmpty)
-			{
-				if (InitialMouse != Cursor.Position)
-				{
-					this.KillVLC();
-					this.Close();
-				}
-			}
-			else
-			{
-				InitialMouse = new Point(Cursor.Position.X, Cursor.Position.Y);
-			}
 		}
 
 		private void KillVLC()
 		{
-			if (this.theProcess.HasExited == false)
+            if (this.theProcess.HasExited == false)
 			{
 				this.theProcess.CloseMainWindow();
 				this.theProcess.Kill();
 			}
-		}
+            this.Close();
+        }
 
-	}
+    }
 }

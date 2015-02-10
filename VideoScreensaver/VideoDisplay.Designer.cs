@@ -46,14 +46,7 @@ namespace VLCVideoScreensaver
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 200;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // VideoDisplay
             // 
@@ -71,16 +64,11 @@ namespace VLCVideoScreensaver
             this.Text = "Screensaver";
             this.TransparencyKey = System.Drawing.Color.LightGray;
             this.Load += new System.EventHandler(this.onLoad);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeypress);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnMouseClick);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnMouseMove);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-	private System.Windows.Forms.Timer timer1;
     }
 }
 
